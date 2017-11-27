@@ -1,9 +1,9 @@
 # Angular 5 
- **login: admin
- **password: 1
+ ** login: admin
+ ** password: 1
 
 ## Main 
-  **testApi/angular-photohub/src/app
+  ** testApi/angular-photohub/src/app
   
 ## Component
   **testAp/angular-photohub/src/app/auth-form
