@@ -1,0 +1,63 @@
+<div id="gridContent">
+
+<div id="back" *ngIf="loginForEdit==null" (click)="logout()" class="mainBlock">
+  <p>Logout</p>
+</div>
+<div id="back" *ngIf="loginForEdit!==null && admin" (click)="resetEdit()" class="mainBlock">
+  <p>back</p>
+</div>
+<div *ngIf="admin" id="userList" class="mainBlock">
+
+  <form id="loadForm" *ngIf = "admin"  #loadForm="ngForm">
+    <h2>Добавить нового пользователя:</h2>
+    <input #newUserName name = "newUserName" type="text" placeholder="Новый пользователь" ><br>
+    <input #newUserPassword name = "newUserPassword" type="text" placeholder="Новый пароль" ><br>
+    <input #file class="form-control" type= "file" name="file" multiple>
+    <input #loadButton class="form-control" type="submit" (click)="submitLoad(newUserName, newUserPassword, file, loadButton)"> <br>
+  </form>
+
+    <h2>Список пользователей:</h2>
+    <input #seach name = "search" type="text" placeholder="Поиск" > <br>
+    <ul>
+      <li *ngFor="let userInfo of adata"
+        [class.selected]="userInfo.login === loginForEdit"
+        (click)="checkUser(userInfo)">{{userInfo.login}}</li>
+    </ul>
+
+    <div *ngIf="loginForEdit!==null">
+        <h1>{{loginForEdit}}:</h1>
+      <form id="editForm" #editForm>
+        <div class = "left">
+          <input #deleteButton  type = "submit" (click) = "delete(loginForEdit, deleteButton)" value='Удалить'>
+        </div>
+        <div class = "center">
+          <input #editUserName name = "editUserName" type="text" placeholder={{loginForEdit}}><br>
+          <input #editUserPassword name = "editUserPassword" type="text" placeholder="Новый пароль" ><br>
+        </div>
+        <div class = "right">
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <div id="mainBlockContent" *ngIf = "images !== null && images[0].src!==null" >
+
+    <form #updateForm='ngForm'>
+      <div *ngFor = "let image of images" name = "contentBlock">
+
+        <div id="imageBlock">
+          <img src={{image.src}} /><br>
+          <input *ngIf = "admin" [name] = "image.name" type="text" [(ngModel)]="image.name"><br>
+          <label>{{image.name}}</label>
+        </div>
+
+      </div>
+      <input #updateButton *ngIf = "images !== null && admin" type = "submit" (click) = "submitUpdate(updateForm, updateButton)">
+    </form>
+
+  </div>
+
+
+
+</div>

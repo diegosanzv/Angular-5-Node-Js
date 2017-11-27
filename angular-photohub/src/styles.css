@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #e3e8e6;
+  margin: 0;
+  display: grid;
+  justify-content: center;
+}
+
+.mainBlock {
+  max-width: 680px;
+  background-color: white;
+  padding: 20px;
+  justify-content: center;
+  border: 1px solid black;
+  -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+  -moz-box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+  box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+}
+img {
+  max-width: 600px;
+}

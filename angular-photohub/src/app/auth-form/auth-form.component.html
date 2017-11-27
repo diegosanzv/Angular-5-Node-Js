@@ -1,0 +1,11 @@
+<div  id="gridMain" >
+
+  <form id="auth" class="mainBlock" [ngStyle]="setStyles()" #authForm="ngForm" (ngSubmit)="submit(authForm, button)" ngNativeValidate>
+    <input class="form-control" ngModel placeholder=" Логин" name="userName" required>
+    <input class="form-control" ngModel placeholder=" Пароль" name="userPassword" type="password" required>
+    <button #button class="form-control" type="submit">вход</button><br>
+    {{status}}
+    {{authStatus}}
+  </form>
+
+</div>

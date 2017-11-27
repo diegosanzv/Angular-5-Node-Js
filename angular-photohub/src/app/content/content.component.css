@@ -1,0 +1,100 @@
+#gridContent {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 100px 100px 1fr 100px 100px;
+}
+
+#loadForm {
+  margin-bottom: 50px;
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+#editForm {
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+#editForm .left {
+  grid-column: 1 / 1;
+}
+#editForm .center {
+  grid-column: 2 / 2;
+}
+#editForm .right {
+  grid-column: 3 / 3;
+}
+#back {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  grid-column: 1/1;
+  width: 50px;
+  height: 50px;
+  background-color: #ffcccc;
+  padding: 10px;
+}
+
+#next {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  grid-column: 5/5;
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  background-color: #ffcccc;
+  padding: 10px;
+}
+.selected {
+  background-color: #e2f7df;
+}
+
+#imageBlock {
+  display: grid;
+  margin-bottom: 30px;
+  max-width: 680px;
+
+  background-color: white;
+  padding: 20px;
+  justify-content: center;
+  border: 1px solid black;
+
+  -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+  -moz-box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+  box-shadow: 5px 5px 10px rgba(0,0,0,.4);
+}
+
+#mainBlockContent {
+  margin-bottom: 50px;
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  grid-column: 3 / 3;
+}
+
+label {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+}
+
+li {
+  list-style-type: none;
+  float: left;
+  border: solid 1px black;
+  text-align: center;
+  margin: 20px;
+  width: 150px;
+  line-height: 60px;
+}
+
+#userList {
+  margin-bottom: 50px;
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  grid-column: 3 / 3;
+
+}
