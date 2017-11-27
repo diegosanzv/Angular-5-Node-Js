@@ -1,4 +1,4 @@
-# Angular 5 
+# Angular 5 http://kekcheburek.ru
  login: admin
  password: 1
  
@@ -17,7 +17,7 @@
 ## Service
  testApi/angular-photohub/src/http.service
 
-# NodeJS 
+# NodeJS http://kekcheburek.ru/node/
 ## server 
  testAp/app/server.js
 ## routes
