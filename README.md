@@ -1,17 +1,17 @@
 # Angular 5 http://kekcheburek.ru
- login: admin
+ login: admin <br>
  password: 1
  
 ## Main 
  testApi/angular-photohub/src/app
   
 ## Component
- testAp/angular-photohub/src/app/auth-form
- testApi/angular-photohub/src/app/content
+ testAp/angular-photohub/src/app/auth-form <br>
+ testApi/angular-photohub/src/app/content <br>
  testApi/angular-photohub/src/app/load-form
   
 ## Class
- testApi/angular-photohub/src/photo.ts
+ testApi/angular-photohub/src/photo.ts <br>
  testApi/angular-photohub/src/cookie.ts
   
 ## Service
