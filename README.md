@@ -1,25 +1,25 @@
-#Angular 5 
+# Angular 5 
 
   login: admin
   password: 1
 
-##Main 
+## Main 
   testApi/angular-photohub/src/app
   
-##Component
+## Component
   testAp/angular-photohub/src/app/auth-form
   testApi/angular-photohub/src/app/content
   testApi/angular-photohub/src/app/load-form
   
-##Class
+## Class
   testApi/angular-photohub/src/photo.ts
   testApi/angular-photohub/src/cookie.ts
   
-##Service
+## Service
   testApi/angular-photohub/src/http.service
 
-#NodeJS 
-##server 
+# NodeJS 
+## server 
   testAp/app/server.js
-##routes
+## routes
   testAp/app/routes/userRoutes.js
