@@ -17,6 +17,8 @@ export class ContentComponent implements OnInit {
   login: string;
   admin: boolean;
   images : Photo[];
+  editFormStatus: string;
+  loadFormStatus: string;
 
   logout() {
     this.login = Cookie.deleteCookie();
@@ -72,33 +74,53 @@ export class ContentComponent implements OnInit {
         this.images = data.images;
         this.loginForEdit = data.login as string;
         button.disabled = false;
+        this.loadFormStatus= 'OK';
 
       },
       error => {
         button.disabled = false;
+        this.loadFormStatus= error;
+        console.log(error);
       }
     );
   }
 
   /* put */
-  submitUpdate (form: NgForm, button) {     //error!
-    let updateData = {
-      "src": this.images,
-      "login": this.loginForEdit
-    };
+  updateUser (newLogin, newPassword, button) {     //error!
+    button.disabled = true;
+    let updateData;
+    if (newLogin===null) {
+      updateData = {
+        "images": this.images,
+        "login": this.loginForEdit
+      };
+    } else {
+      updateData = {
+        "login": this.loginForEdit,
+        "newLogin": newLogin.value,
+        "newPassword": newPassword.value
+      };
+    }
 
     this.httpService.update(updateData).subscribe(
-      result => {
+      (error) => {
+
+      },
+      (result) => {
         button.disabled = false;
+        this.getUserList ();
+        console.log(result);
       }
     );
     this.images= null;
     this.loginForEdit= null;
   }
+
   /* delete */
   delete (login, button) {
     this.httpService.delete(login).subscribe((result:any) => {
       this.getUserList();
+      this.images = null;
     });
   }
 }

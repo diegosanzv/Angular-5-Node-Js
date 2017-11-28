@@ -28,6 +28,7 @@ export class HttpService {
 
 /* PUT */
   update (updateData: any) {
+    console.log(updateData)
     return this.http.put('/node/user', updateData);
   }
 /* DELETE */

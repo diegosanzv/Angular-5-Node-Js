@@ -10,10 +10,11 @@
 
   <form id="loadForm" *ngIf = "admin"  #loadForm="ngForm">
     <h2>Добавить нового пользователя:</h2>
-    <input #newUserName name = "newUserName" type="text" placeholder="Новый пользователь" ><br>
-    <input #newUserPassword name = "newUserPassword" type="text" placeholder="Новый пароль" ><br>
-    <input #file class="form-control" type= "file" name="file" multiple>
-    <input #loadButton class="form-control" type="submit" (click)="submitLoad(newUserName, newUserPassword, file, loadButton)"> <br>
+    <input #newUserName name = "newUserName" type="text" placeholder="Новый пользователь" required><br>
+    <input #newUserPassword name = "newUserPassword" type="text" placeholder="Новый пароль" required><br>
+    <input #file class="form-control" type= "file" name="file" multiple required>
+    <button #loadButton class="form-control" type="submit" (click)="submitLoad(newUserName, newUserPassword, file, loadButton)">Отправить</button> <br>
+    {{loadFormStatus}}
   </form>
 
     <h2>Список пользователей:</h2>
@@ -31,11 +32,13 @@
           <input #deleteButton  type = "submit" (click) = "delete(loginForEdit, deleteButton)" value='Удалить'>
         </div>
         <div class = "center">
-          <input #editUserName name = "editUserName" type="text" placeholder={{loginForEdit}}><br>
-          <input #editUserPassword name = "editUserPassword" type="text" placeholder="Новый пароль" ><br>
+          <input #updateUserName name = "updateUserName" type="text" placeholder={{loginForEdit}} required><br>
+          <input #updateUserPassword name = "updateUserPassword" type="text" placeholder="Новый пароль" required><br>
         </div>
         <div class = "right">
+          <button #updateButton2 type="submit" (click)="updateUser(updateUserName, updateUserPassword, updateButton2)">Сменить пароль</button> <br>
         </div>
+        {{editFormStatus}}
       </form>
     </div>
 
@@ -53,11 +56,9 @@
         </div>
 
       </div>
-      <input #updateButton *ngIf = "images !== null && admin" type = "submit" (click) = "submitUpdate(updateForm, updateButton)">
+      <button #updateButton *ngIf = "images !== null && admin" type = "submit" (click) = "updateUser(null, null, updateButton)">Сохранить изминения</button>
     </form>
 
   </div>
-
-
 
 </div>

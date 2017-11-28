@@ -19,3 +19,6 @@ body {
 img {
   max-width: 600px;
 }
+#imageBlock input {
+    text-align: center;
+}

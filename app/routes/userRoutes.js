@@ -97,31 +97,51 @@ module.exports = function(app, db) {
         }
         console.log('userdata= '+userData);
         collection.insert(userData, function(err, result) {
-          console.log('reusult' +result);
-          console.log('err = '+err);
+          if (err) {
+            res.status(500).send(err.errmsg);
+            console.log(err.errmsg);
+          } else {
           let data = {
-            "login": userData.login,
-            "images": pathOfImages
-          };
-          res.status('200').send(data);
+              "login": userData.login,
+              "images": pathOfImages
+            };
+            res.status('200').send(data);
+            console.log(result);
+          }
         });
       }
     });
   });
 
   app.put('//user/', parseJson, (req, res) => {                                          //PUT EDIT
+    console.log('body: '+req.body )
     const userName = checkCookie(req, res);
     checkAdmin(userName).then((result) => {
       try {
-        collection.findOneAndUpdate(
-          { "login": req.body.login },
-          { $set:
-            {
-              "images": req.body.src
+        if (req.body.images) {
+          collection.findOneAndUpdate(
+            { "login": req.body.login },
+            { $set:
+              {
+                "images": req.body.images
+              }
             }
-          }
-        );
-        res.end();
+          );
+          res.status(200).send('success');
+        } else if (req.body.newLogin) {
+          collection.findOneAndUpdate(
+            { "login": req.body.login },
+            { $set:
+              {
+                "login": req.body.newLogin,
+                "password": req.body.newPassword
+              },
+            }
+          );
+          console.log('login password : ' + req.body.newLogin+req.body.newPassword )
+          res.status(200).send('success');
+        }
+
       } catch (err) {
         res.status(500).send(err);
         console.log(err)
