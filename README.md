@@ -3,22 +3,22 @@
  password: 1
  
 ## Main 
- testApi/angular-photohub/src/app
+ Angular-5-Node-Js/angular-photohub/src/app
   
 ## Component
- testAp/angular-photohub/src/app/auth-form <br>
- testApi/angular-photohub/src/app/content <br>
- testApi/angular-photohub/src/app/load-form
+ Angular-5-Node-Js/angular-photohub/src/app/auth-form <br>
+ Angular-5-Node-Js/angular-photohub/src/app/content <br>
+ Angular-5-Node-Js/angular-photohub/src/app/load-form
   
 ## Class
- testApi/angular-photohub/src/photo.ts <br>
- testApi/angular-photohub/src/cookie.ts
+ Angular-5-Node-Js/angular-photohub/src/photo.ts <br>
+ Angular-5-Node-Js/angular-photohub/src/cookie.ts
   
 ## Service
- testApi/angular-photohub/src/http.service
+ Angular-5-Node-Js/angular-photohub/src/http.service
 
 # NodeJS http://kekcheburek.ru/node/
 ## server 
- testAp/app/server.js
+ Angular-5-Node-Js/app/server.js
 ## routes
- testAp/app/routes/userRoutes.js
+ Angular-5-Node-Js/app/routes/userRoutes.js
