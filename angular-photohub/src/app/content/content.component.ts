@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Photo } from '../photo';
 
@@ -16,7 +16,7 @@ export class ContentComponent implements OnInit {
   adata: any;
   login: string;
   admin: boolean;
-  images : Photo[];
+  images : any;
   editFormStatus: string;
   loadFormStatus: string;
 
@@ -34,7 +34,7 @@ export class ContentComponent implements OnInit {
      this.images = null;
  }
 
-  constructor( private httpService: HttpService ) {
+  constructor( private elt:ElementRef, private httpService: HttpService ) {
     this.images = null;
    }
 
@@ -44,28 +44,46 @@ export class ContentComponent implements OnInit {
     this.loginForEdit = null;
   }
 
+deleteImg(image, button) {
+  if (this.images.length === 1) {return;}
+  let newImages = [];
+  this.images.forEach((item) => {
+    if(image !== item){
+      newImages.push(item);
+    }
+  });
+  this.images = newImages;
+  this.updateUser(null, null, button);
+}
+
   /* get */
 
   getUserList () {
-    this.httpService.getImages().subscribe((result:any) => {
-      this.login = result.login as string;
-      this.admin = result.admin as boolean;
-      if(!this.images){
-        this.images= result.images;
-      }
-      this.adata = result.data;
+    this.httpService.getImages().subscribe(
+      (result:any) => {
+        this.login = result.login as string;
+        this.admin = result.admin as boolean;
+        if(!this.images){
+          this.images= result.images;
+        }
+        this.adata = result.data;
+    },
+    (error: any) => {
+        console.log('that looks bad: '+error.error);
+        this.logout();
     });
   }
 
   /* post */
-  submitLoad (newUserName, newUserPassword, inputImages, button) {
+  submitLoad (newUserName, newUserPassword, inputImages, button, loadForm) {
     button.disabled = true;
     let fd = new FormData();
-    fd.append('userName', newUserName.value);
+    fd.append('userName', newUserName.value.toLowerCase());
     fd.append('userPassword', newUserPassword.value);
 
     for(let i: number = 0; i < inputImages.files.length; i++) {
       fd.append('images', inputImages.files[i]);
+      console.log(inputImages.files[i])
     }
 
     this.httpService.sendFile(fd).subscribe(
@@ -79,7 +97,7 @@ export class ContentComponent implements OnInit {
       },
       error => {
         button.disabled = false;
-        this.loadFormStatus= error;
+        this.loadFormStatus= error.error as string;
         console.log(error);
       }
     );
@@ -97,9 +115,10 @@ export class ContentComponent implements OnInit {
     } else {
       updateData = {
         "login": this.loginForEdit,
-        "newLogin": newLogin.value,
+        "newLogin": newLogin.value.toLowerCase(),
         "newPassword": newPassword.value
       };
+      this.loginForEdit = newLogin.value;
     }
 
     this.httpService.update(updateData).subscribe(
@@ -112,8 +131,6 @@ export class ContentComponent implements OnInit {
         console.log(result);
       }
     );
-    this.images= null;
-    this.loginForEdit= null;
   }
 
   /* delete */

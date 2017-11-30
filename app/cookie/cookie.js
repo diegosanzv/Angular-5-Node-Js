@@ -12,6 +12,7 @@ module.exports.set = function(res, name, value, options) {
         cookie = [encodeURIComponent(name) + '=' + encodeURIComponent(value)];
 
     if (value === null || value === undefined) {
+      console.log('deleteInCookie')
         options = options || {};
         options.expires = new Date(0);
     }
@@ -24,6 +25,6 @@ module.exports.set = function(res, name, value, options) {
         if (options.secure) cookie.push('secure');
         if (options.httpOnly) cookie.push('httponly');
     }
-
+          console.log('Set-Cookie', [].concat(header, cookie.join('; ')))
     res.setHeader('Set-Cookie', [].concat(header, cookie.join('; ')));
 };

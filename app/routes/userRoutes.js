@@ -10,18 +10,18 @@ const storage = multer.diskStorage({
     cb(null, "./app/public/uploads/")
   },
   filename: function (req, file, cb) {
-    var pathImage = file.fieldname + '-' + Date.now()+ path.extname(file.originalname);
+    var pathImage = file.fieldname + file.originalname.split('.')[0] + '-' + Date.now() + path.extname(file.originalname);
     cb(null, pathImage)
   }
 });
 
-const upload = multer({storage: storage}).array('images', 20);
+const upload = multer({storage: storage}).any();
 
-module.exports = function(app, db) {
+module.exports = (app, db) => {
   const collection = db.collection('users'),
         parseJson  = bodyParser.json();
 
-  app.post('//', parseJson, function (req, res) {
+  app.post('//', parseJson, (req, res) => {
     console.log(req.body);
     if (req.body.userName && req.body.userPassword) {
             collection.findOne({'login': req.body.userName, 'password': req.body.userPassword}, (err, result) => {
@@ -41,29 +41,34 @@ module.exports = function(app, db) {
   });
 
 
-  app.get('//user/', (req, res) => {
+  app.get('//user/', parseJson, (req, res) => {
     const userName = checkCookie(req, res)
     if (userName !== undefined && userName !== false) {
       collection.findOne({'login': userName}, (err, result) => {
-
-        if (result.admin === true) {
-          collection.find().toArray(function(err, result) {
+        if(result) {
+          console.log('result' + result);
+          if (result.admin === true) {
+            collection.find().toArray(function(err, result) {
+              const data = {
+                "login":  userName,
+                "admin": true,
+                "images": null,
+                "data": result
+              }
+              res.send(data);
+            });
+          } else {
             const data = {
-              "login":  userName,
-              "admin": true,
-              "images": null,
-              "data": result
+              "login":  result.login,
+              "admin": false,
+              "images": result.images,
+              "data": null
             }
+          console.log('2');
             res.send(data);
-          });
-        } else {
-          const data = {
-            "login":  result.login,
-            "admin": false,
-            "images": result.images,
-            "data": null
           }
-            res.send(data);
+        } else {
+          res.status(500).send('cookie');
         }
       });
     }
@@ -77,6 +82,7 @@ module.exports = function(app, db) {
       if (result === true) {
         let pathOfImages = [];
         let id = 0;
+        console.log(req.files)
         req.files.forEach((file) => {
 
           let newPath = file.path.replace(/app\\public\\/, '/');;
@@ -85,9 +91,10 @@ module.exports = function(app, db) {
 
           pathOfImages.push({
             "id":id,
-            "name": "описание",
+            "name": "Image " + id,
             "src": src
           });
+          console.log(pathOfImages);
         });
           let userData = {
           "login": req.body.userName,
@@ -96,10 +103,15 @@ module.exports = function(app, db) {
           "images": pathOfImages
         }
         console.log('userdata= '+userData);
+
         collection.insert(userData, function(err, result) {
           if (err) {
-            res.status(500).send(err.errmsg);
-            console.log(err.errmsg);
+            deleteImages(pathOfImages, (cb) => {
+              if(cb === true) {
+                res.status(500).send(err.errmsg);
+                console.log(err.errmsg);}
+            });
+
           } else {
           let data = {
               "login": userData.login,
@@ -152,7 +164,7 @@ module.exports = function(app, db) {
   app.delete('//user/:id', parseJson, (req, res) => {                                     //DELETE DELETE
     const userName = checkCookie(req, res);
     checkAdmin(userName).then((isAdmin) => {
-      if (userName == req.params.id || isAdmin === true) {
+      if (userName != req.params.id && isAdmin === true) {
         collection.findOne({'login': req.params.id}, (err, result) => {
           console.log(result.images);
           deleteImages(result.images, (deleteResult) => {

@@ -15,7 +15,8 @@ global.checkCookie = (req, res) => {
 
     if (cookieLogin === false) {
       cookie.set(res, 'login', null);
-      res.send('no cookie')
+      res.clearCookie;
+      res.status(500).send('bad');
     } else {
       return cookieLogin;
     }

@@ -11,9 +11,9 @@
   <form id="loadForm" *ngIf = "admin"  #loadForm="ngForm">
     <h2>Добавить нового пользователя:</h2>
     <input #newUserName name = "newUserName" type="text" placeholder="Новый пользователь" required><br>
-    <input #newUserPassword name = "newUserPassword" type="text" placeholder="Новый пароль" required><br>
-    <input #file class="form-control" type= "file" name="file" multiple required>
-    <button #loadButton class="form-control" type="submit" (click)="submitLoad(newUserName, newUserPassword, file, loadButton)">Отправить</button> <br>
+    <input #newUserPassword ngModel name = "newUserPassword" type="text" placeholder="Новый пароль" required><br>
+    <input #file ngModel class="form-control" type= "file" name="file" multiple required>
+    <button #loadButton name="button"  class="form-control" type="submit" (click)="submitLoad(newUserName, newUserPassword, file, loadButton, loadForm)">Отправить</button> <br>
     {{loadFormStatus}}
   </form>
 
@@ -53,6 +53,7 @@
           <img src={{image.src}} /><br>
           <input *ngIf = "admin" [name] = "image.name" type="text" [(ngModel)]="image.name"><br>
           <label>{{image.name}}</label>
+          <button *ngIf="admin" #delete (click)="deleteImg(image, delete)">delete</button>
         </div>
 
       </div>

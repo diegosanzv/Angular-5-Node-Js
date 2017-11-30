@@ -10,7 +10,11 @@ export class HttpService {
 
 /* auth-form */
   auth (form: NgForm) {
-    return this.http.post('/node', form.value);
+    let formData = {
+      "userName": form.value.userName.toLowerCase(),
+      "userPassword": form.value.userPassword
+    };
+    return this.http.post('/node', formData);
   }
 
 /* content */
@@ -18,6 +22,7 @@ export class HttpService {
   sendFile (data) {
     let fd = new FormData();
     fd = data;
+    console.log(fd);
     return this.http.post('/node/user', fd);
   }
 
