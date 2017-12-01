@@ -33,7 +33,7 @@ mongoClient.connect(config.admin.uri, (err, db) => {
 
 app.use(express.static('./app/public'));
 
-app.listen(8082, function () {
+app.listen(8088, function () {
     console.log('listen 8082');
 
 });
