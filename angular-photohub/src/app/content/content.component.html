@@ -8,12 +8,12 @@
 </div>
 <div *ngIf="admin" id="userList" class="mainBlock">
 
-  <form id="loadForm" *ngIf = "admin"  #loadForm="ngForm">
+  <form id="loadForm" *ngIf = "admin" (ngSubmit)="submitLoad(newUserName, newUserPassword, file, loadButton, loadForm)" #loadForm="ngForm" ngNativeValidate>
     <h2>Добавить нового пользователя:</h2>
-    <input #newUserName name = "newUserName" type="text" placeholder="Новый пользователь" required><br>
-    <input #newUserPassword ngModel name = "newUserPassword" type="text" placeholder="Новый пароль" required><br>
+    <input #newUserName pattern="[a-zA-Z0-9]*" name = "newUserName" type="text" placeholder="Новый пользователь" required><br>
+    <input #newUserPassword pattern="[a-zA-Z0-9]*" ngModel name = "newUserPassword" type="text" placeholder="Новый пароль"><br>
     <input #file ngModel class="form-control" type= "file" name="file" multiple required>
-    <button #loadButton name="button"  class="form-control" type="submit" (click)="submitLoad(newUserName, newUserPassword, file, loadButton, loadForm)">Отправить</button> <br>
+    <button #loadButton name="button"  class="form-control" type="submit">Отправить</button> <br>
     {{loadFormStatus}}
   </form>
 
@@ -27,16 +27,23 @@
 
     <div *ngIf="loginForEdit!==null">
         <h1>{{loginForEdit}}:</h1>
-      <form id="editForm" #editForm>
-        <div class = "left">
-          <input #deleteButton  type = "submit" (click) = "delete(loginForEdit, deleteButton)" value='Удалить'>
-        </div>
+
+      <div class = "left">
+        <input #deleteButton
+          type = "submit"
+          (click) = "delete(loginForEdit, deleteButton)"
+          value='Удалить' >
+      </div>
+      <form id="editForm"
+       #editForm="ngForm"
+       (ngSubmit) = "updateUser(updateUserName, updateUserPassword, updateButton2)"
+       ngNativeValidate >
         <div class = "center">
-          <input #updateUserName name = "updateUserName" type="text" placeholder={{loginForEdit}} required><br>
-          <input #updateUserPassword name = "updateUserPassword" type="text" placeholder="Новый пароль" required><br>
+          <input pattern="[a-zA-Z0-9]*" #updateUserName name = "updateUserName" type="text" placeholder={{loginForEdit}} required><br>
+          <input pattern="[a-zA-Z0-9]*" #updateUserPassword name = "updateUserPassword" type="text" placeholder="Новый пароль"><br>
         </div>
         <div class = "right">
-          <button #updateButton2 type="submit" (click)="updateUser(updateUserName, updateUserPassword, updateButton2)">Сменить пароль</button> <br>
+          <button #updateButton2 type="submit">Сменить пароль</button> <br>
         </div>
         {{editFormStatus}}
       </form>
