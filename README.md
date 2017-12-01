@@ -1,4 +1,4 @@
-# Angular 5 http://kekcheburek.ru
+# Angular 5 http://angular.kekcheburek.ru
  login: admin <br>
  password: 1
  
