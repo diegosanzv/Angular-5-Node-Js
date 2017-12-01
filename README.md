@@ -17,7 +17,7 @@
 ## Service
  Angular-5-Node-Js/angular-photohub/src/http.service
 
-# NodeJS http://kekcheburek.ru/node/
+# NodeJS http://angular.kekcheburek.ru/node/
 ## server 
  Angular-5-Node-Js/app/server.js
 ## routes
