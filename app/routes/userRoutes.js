@@ -4,7 +4,7 @@ const     bodyParser      = require('body-parser'),
           multer          = require('multer'),
           {sign, unsign}  = require('cookie-signature');
 
-/*multer*/
+/* multer */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./app/public/uploads/")
